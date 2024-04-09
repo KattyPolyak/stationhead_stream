@@ -1,3 +1,5 @@
 /venv
 /.idea
-/ __pycache__/
+/__pycache__/
+/stream_models/__pycache__/
+/tests/__pycache__/

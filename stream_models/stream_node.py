@@ -1,5 +1,5 @@
 from uuid import uuid4
-from utils import stream_utils
+from . import stream_utils
 
 
 class StreamNode:
@@ -9,6 +9,9 @@ class StreamNode:
         self.song_uri = song_uri
         self.previous_song = None
         self.next_song = None
+
+    def __str__(self):
+        return self.song_id + ":" + self.song_uri
 
     def get_stream_id(self) -> str:
         stream_id, _ = stream_utils.parse_stream_song_id(self.get_stream_song_id())
@@ -23,10 +26,10 @@ class StreamNode:
     def get_song_uri(self) -> str:
         return self.song_uri
 
-    def get_previous_song(self): # TODO:
+    def get_previous_song(self):
         return self.previous_song
 
-    def get_next_song(self): # TODO:
+    def get_next_song(self):
         return self.next_song
 
     def set_previous_song(self, song_node) -> None:
@@ -34,3 +37,8 @@ class StreamNode:
 
     def set_next_song(self, song_node) -> None:
         self.next_song = song_node
+
+    def disconnect_self(self):
+        previous_song = self.get_previous_song()
+        next_song = self.get_next_song()
+        previous_song.next_song = next_song
